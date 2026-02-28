@@ -73,6 +73,7 @@ python risk_analyzer.py
 - Add ML-based risk prediction
 - Create dashboard visualization
 - Automate weekly reporting
+- Add severity scoring model with weighted risk calculation
 
 ---
 
