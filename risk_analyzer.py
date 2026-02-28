@@ -5,7 +5,9 @@ df = pd.read_csv("sprint_updates.csv")
 
 # Simple risk logic
 def calculate_risk(row):
-    if row["Blockers"] > 0:
+    if row["Blockers"] > 0 and row["Progress (%)"] < 50:
+        return "Critical Risk"
+    elif row["Blockers"] > 0:
         return "High Risk"
     elif row["Progress (%)"] < 50:
         return "Medium Risk"
