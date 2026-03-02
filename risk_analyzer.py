@@ -1,23 +1,34 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Load sprint updates dataset
+# Load dataset
 df = pd.read_csv("sprint_updates.csv")
 
-# Simple risk logic
-def calculate_risk(row):
-    if row["Blockers"] > 0 and row["Progress (%)"] < 50:
-        return "Critical Risk"
-    elif row["Blockers"] > 0:
+# Text-based risk detection
+def calculate_risk(text):
+    text = text.lower()
+    
+    if "blocked" in text or "critical" in text:
         return "High Risk"
-    elif row["Progress (%)"] < 50:
+    elif "delay" in text or "issue" in text:
         return "Medium Risk"
     else:
         return "Low Risk"
 
-# Apply risk logic
-df["Risk Level"] = df.apply(calculate_risk, axis=1)
+# Apply logic
+df["Risk Level"] = df["update_text"].apply(calculate_risk)
 
-# Save updated file
+# Save output
 df.to_csv("sprint_updates_with_risk.csv", index=False)
 
-print("Risk analysis complete. Updated file saved.")
+# Visualization
+risk_counts = df["Risk Level"].value_counts()
+risk_counts.plot(kind="bar")
+plt.title("Sprint Risk Distribution")
+plt.xlabel("Risk Level")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("risk_distribution.png")
+plt.show()
+
+print("Risk analysis complete. Files generated.")
