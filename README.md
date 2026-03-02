@@ -76,5 +76,10 @@ python risk_analyzer.py
 - Add severity scoring model with weighted risk calculation
 
 ---
+## Sample Output
 
+### Risk Distribution Visualization
+![Risk Distribution](risk_distribution.png)
+
+The CSV file `sprint_updates_with_risk.csv` shows the output of the AI-based risk detection on sprint updates.
 Author: Kathy Raina
