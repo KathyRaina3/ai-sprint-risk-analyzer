@@ -25,7 +25,7 @@ This tool helps teams monitor sprint health, track blockers, and visualize risks
 
 ### Risk Distribution Graph
 
-![Sprint Graph](sprint graph.png)
+![Sprint Graph](Sprint graph.png)
 
 ---
 
