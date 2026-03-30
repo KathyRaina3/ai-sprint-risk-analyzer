@@ -19,7 +19,7 @@ This tool helps teams monitor sprint health, track blockers, and visualize risks
 
 ### Progress Metrics Summary
 
-![Progress Summary](Streamlit progress.png)
+![Progress Summary]([Streamlit progress.png](https://github.com/KathyRaina3/ai-sprint-risk-analyzer/blob/main/Streamlit%20progress.png))
 
 ---
 
