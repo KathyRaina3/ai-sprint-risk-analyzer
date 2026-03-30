@@ -1,85 +1,128 @@
-# AI-Powered Sprint Risk Analyzer
+# 🚀 SprintRisk AI — Sprint Risk Analyzer Dashboard
 
-## Overview
-This project simulates an AI-enabled product management workflow by analyzing sprint updates and identifying delivery risks using automated logic.
+## 📌 Overview
 
-It demonstrates how data-driven decision-making can improve sprint visibility and risk mitigation.
+SprintRisk AI is an interactive sprint monitoring dashboard built using Streamlit.
+It analyzes sprint task data and automatically identifies project risks based on blockers and progress levels.
 
----
-
-## Problem Statement
-Product managers often rely on manual updates and subjective judgment to assess sprint health. This creates blind spots in:
-
-- Delivery risk
-- Blocker impact
-- Low progress detection
-- Early warning signals
+This tool helps teams monitor sprint health, track blockers, and visualize risks in real time.
 
 ---
 
-## Solution
-This project builds a lightweight Python-based risk analysis engine that:
+## 📊 Dashboard Preview
 
-- Reads structured sprint update data
-- Applies risk detection logic
-- Flags high, medium, and low risk items
-- Outputs an updated dataset for decision-making
+### Sprint Risk Dashboard
+
+![Sprint Dashboard](Sprintrisk dashboard_streamlit.png)
 
 ---
 
-## Project Structure
-- `sprint_updates.csv` → Synthetic sprint dataset
-- `risk_analyzer.py` → Risk detection logic
-- `sprint_updates_with_risk.csv` → Output file with risk levels
+### Progress Metrics Summary
+
+![Progress Summary](Streamlit progress.png)
 
 ---
 
-## Risk Logic
+### Risk Distribution Graph
 
-- High Risk → If blockers > 0
-- Medium Risk → If progress < 50%
-- Low Risk → Otherwise
+![Sprint Graph](Sprint graph.png)
 
 ---
 
-## Tools Used
-- Python
-- Pandas
-- GitHub version control
+## 🎯 Key Features
+
+✅ Upload sprint update CSV file
+✅ Automatic Risk Detection (High / Medium / Low)
+✅ Risk Distribution Visualization
+✅ Blocker Tracking
+✅ Sprint Health Score Calculation
+✅ Progress Monitoring
+✅ Download Updated Risk Report
 
 ---
 
-## How to Run
+## 🧠 How Risk Is Calculated
 
-```bash
-pip install pandas
-python risk_analyzer.py
-```
+Risk levels are calculated using task progress and blockers:
+
+* **High Risk** → Blockers present AND progress below 50%
+* **Medium Risk** → Blockers present OR progress below 50%
+* **Low Risk** → No blockers AND good progress
+
+Sprint Health Score is calculated based on:
+
+* Low Risk Tasks → High contribution
+* Medium Risk Tasks → Moderate contribution
+* High Risk Tasks → Low contribution
+
+This gives an overall percentage showing sprint stability.
+
+---
+
+## 📂 Sample Input Format
+
+Example CSV structure:
+
+ticket_id,progress,blockers
+ENG-101,40,1
+ENG-102,90,0
+ENG-103,60,0
 
 ---
 
-## Business Impact
+## ⚙️ Technologies Used
 
-- Enables proactive sprint monitoring
-- Reduces delivery uncertainty
-- Improves stakeholder reporting
-- Demonstrates AI-assisted product decision workflows
+* Python
+* Pandas
+* Matplotlib
+* Streamlit
+
+---
+
+## ▶️ How to Run Locally
+
+Step 1 — Install dependencies:
+
+pip install streamlit pandas matplotlib
+
+Step 2 — Run the app:
+
+streamlit run sprintrisk_app.py
 
 ---
 
-## Future Improvements
+## 📈 Sprint Metrics Included
 
-- Integrate with Jira API
-- Add ML-based risk prediction
-- Create dashboard visualization
-- Automate weekly reporting
-- Add severity scoring model with weighted risk calculation
+The dashboard calculates:
+
+* Total Tasks
+* High Risk Tasks
+* Medium Risk Tasks
+* Low Risk Tasks
+* Total Blockers
+* Average Progress (%)
+* Sprint Health Score (%)
 
 ---
-## Sample Output
 
-### Risk Distribution Visualization
-![Risk Distribution](risk_distribution.png)
+## 🚀 Future Enhancements
 
-The CSV file `sprint_updates_with_risk.csv` shows the output of the AI-based risk detection on sprint updates.
-Author: Kathy Raina
+Planned improvements include:
+
+* Risk trend analysis over time
+* AI-based text risk detection
+* Priority-based risk scoring
+* Integration with sprint tools (Jira-style workflows)
+
+---
+
+## 👩‍💻 Project Purpose
+
+This project demonstrates practical implementation of:
+
+* Agile sprint monitoring
+* Risk analysis automation
+* Data visualization dashboards
+* Project health tracking
+
+It reflects real-world sprint risk management practices used in modern software teams.
