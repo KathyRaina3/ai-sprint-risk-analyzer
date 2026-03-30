@@ -13,13 +13,13 @@ This tool helps teams monitor sprint health, track blockers, and visualize risks
 
 ### Sprint Risk Dashboard
 
-![Sprint Dashboard](Sprintrisk dashboard_streamlit.png)
+![Sprint Dashboard](Sprintrisk_dashboard_streamlit.png)
 
 ---
 
 ### Progress Metrics Summary
 
-![Progress Summary](Streamlit progress.png)
+![Progress Summary](Streamlit_progress.png)
 
 ---
 
