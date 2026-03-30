@@ -67,7 +67,7 @@ ticket_id,progress,blockers
 ENG-101,40,1
 ENG-102,90,0
 ENG-103,60,0
-(https://github.com/KathyRaina3/ai-sprint-risk-analyzer/blob/main/sprint_updates_with_risk.csv)
+(sprint_updates_with_risk.csv)
 
 ---
 
