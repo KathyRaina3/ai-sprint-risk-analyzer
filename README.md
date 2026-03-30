@@ -13,7 +13,7 @@ This tool helps teams monitor sprint health, track blockers, and visualize risks
 
 ### Sprint Risk Dashboard
 
-![Sprint Dashboard](Sprintrisk dashboard_streamlit.png)
+![Sprint Dashboard]([Sprintrisk dashboard_streamlit.png](https://github.com/KathyRaina3/ai-sprint-risk-analyzer/blob/main/Sprintrisk%20dashboard_streamlit.png))
 
 ---
 
