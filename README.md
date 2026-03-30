@@ -25,7 +25,7 @@ This tool helps teams monitor sprint health, track blockers, and visualize risks
 
 ### Risk Distribution Graph
 
-![Sprint Graph]([Sprint graph.png](https://github.com/KathyRaina3/ai-sprint-risk-analyzer/blob/main/Sprint%20graph.png))
+![Sprint Graph]([Sprint graph.png](Sprint graph.png))
 
 ---
 
