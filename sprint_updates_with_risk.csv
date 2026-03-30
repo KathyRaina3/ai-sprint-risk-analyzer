@@ -1,11 +1,11 @@
-ticket_id,update_text,Risk Level
-ENG-101,API integration pending from payments team may delay release by 3 days,Medium Risk
-ENG-102,Frontend implementation completed on schedule,Low Risk
-ENG-103,Waiting on data schema confirmation from data engineering,Low Risk
-ENG-104,Unexpected production bug found requires hotfix,Low Risk
-ENG-105,Dependency on external vendor not yet resolved,Low Risk
-ENG-106,All test cases passed and deployment ready,Low Risk
-ENG-107,Performance testing indicates latency higher than expected,Low Risk
-ENG-108,Backend refactor taking longer due to legacy code complexity,Low Risk
-ENG-109,Security review approval still pending,Low Risk
-ENG-110,Feature delivered as planned without blockers,Low Risk
+ticket_id	update_text	Risk Level	blockers	progress
+ENG-101	API integration pending from payments team may delay release by 3 days	Medium Risk	1	30
+ENG-102	Frontend implementation completed on schedule	Low Risk	0	100
+ENG-103	Waiting on data schema confirmation from data engineering	Low Risk	1	40
+ENG-104	Unexpected production bug found requires hotfix	Low Risk	1	20
+ENG-105	Dependency on external vendor not yet resolved	Low Risk	1	50
+ENG-106	All test cases passed and deployment ready	Low Risk	0	100
+ENG-107	Performance testing indicates latency higher than expected	Low Risk	0	60
+ENG-108	Backend refactor taking longer due to legacy code complexity	Low Risk	1	30
+ENG-109	Security review approval still pending	Low Risk	1	20
+ENG-110	Feature delivered as planned without blockers	Low Risk	0	100
