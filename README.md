@@ -1,11 +1,10 @@
-# 🚀 SprintRisk AI — Sprint Risk Analyzer Dashboard
+# AI Sprint Risk Analyzer 🚀
 
-## 📌 Overview
+Live App:
+https://ai-sprint-risk-analyzer-jcqfd4z4habsx6uuactvep.streamlit.app/
 
-SprintRisk AI is an interactive sprint monitoring dashboard built using Streamlit.
-It analyzes sprint task data and automatically identifies project risks based on blockers and progress levels.
-
-This tool helps teams monitor sprint health, track blockers, and visualize risks in real time.
+## Overview
+This project predicts sprint delivery risks using sprint updates, blockers, and progress metrics. It visualizes risk distribution and team progress using Streamlit dashboards.
 
 ---
 
