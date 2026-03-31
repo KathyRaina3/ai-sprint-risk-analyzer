@@ -1,0 +1,11 @@
+ticket_id,update_text
+ENG-101,API integration pending from payments team may delay release by 3 days
+ENG-102,Frontend implementation completed on schedule
+ENG-103,Waiting on data schema confirmation from data engineering
+ENG-104,Unexpected production bug found requires hotfix
+ENG-105,Dependency on external vendor not yet resolved
+ENG-106,All test cases passed and deployment ready
+ENG-107,Performance testing indicates latency higher than expected
+ENG-108,Backend refactor taking longer due to legacy code complexity
+ENG-109,Security review approval still pending
+ENG-110,Feature delivered as planned without blockers
