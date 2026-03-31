@@ -109,11 +109,10 @@ The dashboard calculates:
 
 Planned improvements include:
 
-* Risk trend analysis over time
-* AI-based text risk detection
-* Priority-based risk scoring
-* Integration with sprint tools (Jira-style workflows)
-
+*Add risk prediction logic (ML model)
+*Add file upload option
+*Add Jira-style sprint inputs
+*Add AI text risk explanation
 ---
 
 ## 👩‍💻 Project Purpose
