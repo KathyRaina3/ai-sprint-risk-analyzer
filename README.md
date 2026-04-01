@@ -86,7 +86,7 @@ ENG-101,40,1
 ENG-102,90,0
 ENG-103,60,0
 
-📈 Sprint Metrics Included
+##📈 Sprint Metrics Included
 
 The dashboard calculates:
 
@@ -103,7 +103,8 @@ Pandas
 Matplotlib
 Streamlit
 PIL (Python Imaging Library)
-▶️ How to Run Locally
+
+###▶️ How to Run Locally
 
 Step 1 — Install dependencies:
 
@@ -120,7 +121,7 @@ Predictive sprint risk modeling
 Multi-project dashboards
 
 
-👤 Author
+###👤 Author
 
-Kathy Raina
-AI & Product-Focused Project Developer
+##Kathy Raina
+##AI & Product-Focused Project Developer
