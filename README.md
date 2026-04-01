@@ -85,3 +85,42 @@ ticket_id,progress,blockers
 ENG-101,40,1
 ENG-102,90,0
 ENG-103,60,0
+
+📈 Sprint Metrics Included
+
+The dashboard calculates:
+
+Total Tasks
+High Risk Tasks
+Medium Risk Tasks
+Low Risk Tasks
+Total Blockers
+Average Progress (%)
+Sprint Health Score (%)
+⚙️ Technologies Used
+Python
+Pandas
+Matplotlib
+Streamlit
+PIL (Python Imaging Library)
+▶️ How to Run Locally
+
+Step 1 — Install dependencies:
+
+pip install streamlit pandas matplotlib pillow
+
+Step 2 — Run the app:
+
+streamlit run sprintrisk_app.py
+🚀 Future Enhancements
+Smart column auto-detection
+NLP-based risk analysis
+Jira API integration
+Predictive sprint risk modeling
+Multi-project dashboards
+
+
+👤 Author
+
+Kathy Raina
+AI & Product-Focused Project Developer
