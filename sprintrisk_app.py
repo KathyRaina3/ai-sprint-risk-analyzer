@@ -6,12 +6,34 @@ from PIL import Image
 # ===============================
 # Title
 # ===============================
+
 st.title("SprintRisk AI - Universal Sprint Risk Analyzer")
 
 # ===============================
-# Project Screenshots (Optional)
+# Instructions
 # ===============================
+
+st.info("""
+How to Map Columns:
+
+Ticket ID → Unique task ID (Task ID, Issue ID, Ticket Number)
+
+Update Text → Task description (Summary, Title, Task Name)
+
+Blockers → Number of blockers (optional)
+
+Progress → % completion (optional)
+
+If your dataset does not contain blockers or progress,
+default values will be used.
+""")
+
+# ===============================
+# Show Project Screenshots
+# ===============================
+
 st.subheader("Project Overview Screenshots")
+
 col1, col2, col3 = st.columns(3)
 
 try:
@@ -22,155 +44,302 @@ try:
     col1.image(img1, width=300, caption="Sprint Graph")
     col2.image(img2, width=300, caption="Sprint Risk Dashboard")
     col3.image(img3, width=300, caption="Progress Metrics")
+
 except:
     st.info("Project screenshots not found.")
 
 # ===============================
 # File Upload
 # ===============================
-uploaded_file = st.file_uploader("Upload your Sprint CSV File", type=["csv"])
+
+uploaded_file = st.file_uploader(
+    "Upload your CSV File",
+    type=["csv"]
+)
+
+# ===============================
+# Auto-detect Column Suggestions
+# ===============================
+
+def suggest_column(columns, keywords):
+
+    for col in columns:
+        col_lower = col.lower()
+
+        for key in keywords:
+            if key in col_lower:
+                return col
+
+    return columns[0]
+
+# ===============================
+# Main Logic
+# ===============================
 
 if uploaded_file:
 
-    # Read CSV
-    df = pd.read_csv(uploaded_file)
-    st.subheader("Preview Uploaded Data")
-    st.dataframe(df.head())
+    try:
 
-    # ===============================
-    # Column Mapping (Fully Flexible)
-    # ===============================
-    st.subheader("Map Your Columns (Flexible)")
+        df = pd.read_csv(uploaded_file)
 
-    columns = df.columns.tolist()
+        st.subheader("Preview Uploaded Data")
 
-    # Ticket / Task ID
-    ticket_col = st.selectbox(
-        "Select Ticket/Task ID Column",
-        columns,
-        index=0 if len(columns) > 0 else -1
-    )
+        st.dataframe(df.head())
 
-    # Update / Description Column
-    text_col = st.selectbox(
-        "Select Update Text Column",
-        columns,
-        index=1 if len(columns) > 1 else 0
-    )
+        columns = df.columns.tolist()
 
-    # Blockers Column (optional, numeric)
-    blocker_col = st.selectbox(
-        "Select Blockers Column (numeric, optional)",
-        ["None"] + columns,
-        index=0
-    )
+        # ===============================
+        # Auto Suggestions
+        # ===============================
 
-    # Progress Column (%) (optional, numeric)
-    progress_col = st.selectbox(
-        "Select Progress Column (numeric %, optional)",
-        ["None"] + columns,
-        index=0
-    )
+        ticket_default = suggest_column(
+            columns,
+            ["ticket", "id", "issue"]
+        )
 
-    # ===============================
-    # Rename Selected Columns
-    # ===============================
-    df = df.rename(columns={
-        ticket_col: "ticket_id",
-        text_col: "update_text"
-    })
+        text_default = suggest_column(
+            columns,
+            ["summary", "task", "title", "description"]
+        )
 
-    # Safe numeric conversion
-    if blocker_col != "None":
-        df["blockers"] = pd.to_numeric(df[blocker_col], errors="coerce").fillna(0)
-    else:
-        df["blockers"] = 0
+        blocker_default = suggest_column(
+            columns,
+            ["block", "dependency", "impediment"]
+        )
 
-    if progress_col != "None":
-        df["progress"] = pd.to_numeric(df[progress_col], errors="coerce").fillna(0)
-    else:
-        df["progress"] = 0
+        progress_default = suggest_column(
+            columns,
+            ["progress", "complete", "%"]
+        )
 
-    # ===============================
-    # Risk Detection Logic
-    # ===============================
-    def detect_risk(row):
-        blockers = row.get("blockers", 0)
-        progress = row.get("progress", 0)
+        # ===============================
+        # Column Mapping UI
+        # ===============================
 
-        if blockers > 0 and progress < 50:
-            return "High"
-        elif blockers > 0 or progress < 50:
-            return "Medium"
+        st.subheader("Map Your Columns")
+
+        ticket_col = st.selectbox(
+            "Select Ticket ID Column",
+            columns,
+            index=columns.index(ticket_default)
+        )
+
+        text_col = st.selectbox(
+            "Select Update Text Column",
+            columns,
+            index=columns.index(text_default)
+        )
+
+        blocker_col = st.selectbox(
+            "Select Blockers Column (optional)",
+            ["None"] + columns
+        )
+
+        progress_col = st.selectbox(
+            "Select Progress Column (%) (optional)",
+            ["None"] + columns
+        )
+
+        # ===============================
+        # Rename Required Columns
+        # ===============================
+
+        df = df.rename(columns={
+            ticket_col: "ticket_id",
+            text_col: "update_text"
+        })
+
+        # ===============================
+        # Safe Numeric Handling
+        # ===============================
+
+        # Blockers
+
+        if blocker_col != "None":
+
+            df["blockers"] = pd.to_numeric(
+                df[blocker_col],
+                errors="coerce"
+            ).fillna(0)
+
         else:
-            return "Low"
 
-    df["Calculated Risk"] = df.apply(detect_risk, axis=1)
+            df["blockers"] = 0
 
-    # ===============================
-    # Risk Analysis Table
-    # ===============================
-    st.subheader("Risk Analysis Results")
-    st.dataframe(df)
+            st.warning(
+                "No blocker column selected. Using default value = 0."
+            )
 
-    # ===============================
-    # Risk Distribution Chart
-    # ===============================
-    st.subheader("Sprint Risk Distribution")
+        # Progress
 
-    risk_counts = df["Calculated Risk"].value_counts()
-    fig, ax = plt.subplots()
-    colors = [
-        "red" if r == "High" else
-        "orange" if r == "Medium" else
-        "green"
-        for r in risk_counts.index
-    ]
-    ax.bar(risk_counts.index, risk_counts.values, color=colors)
-    ax.set_xlabel("Risk Level")
-    ax.set_ylabel("Count")
-    ax.set_title("Sprint Risk Distribution")
-    st.pyplot(fig)
+        if progress_col != "None":
 
-    # ===============================
-    # Metrics Summary
-    # ===============================
-    total_tasks = len(df)
-    high_risk_tasks = (df["Calculated Risk"] == "High").sum()
-    medium_risk_tasks = (df["Calculated Risk"] == "Medium").sum()
-    low_risk_tasks = (df["Calculated Risk"] == "Low").sum()
+            df["progress"] = pd.to_numeric(
+                df[progress_col],
+                errors="coerce"
+            ).fillna(50)
 
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Tasks", total_tasks)
-    col2.metric("High Risk", high_risk_tasks)
-    col3.metric("Medium Risk", medium_risk_tasks)
-    col4.metric("Low Risk", low_risk_tasks)
+        else:
 
-    # Blockers Summary
-    total_blockers = df["blockers"].sum()
-    st.subheader("Blocker Summary")
-    st.metric("Total Blockers", int(total_blockers))
+            df["progress"] = 50
 
-    # Progress Summary
-    avg_progress = df["progress"].mean()
-    st.subheader("Progress Summary")
-    st.metric("Average Progress (%)", round(avg_progress, 1))
+            st.warning(
+                "No progress column selected. Using default value = 50%."
+            )
 
-    # Sprint Health Score
-    health_score = ((low_risk_tasks*1.0 + medium_risk_tasks*0.5 + high_risk_tasks*0.2) / total_tasks) * 100
-    st.subheader("Sprint Health Score")
-    st.metric("Sprint Health (%)", round(health_score, 1))
+        # ===============================
+        # Risk Detection Logic
+        # ===============================
 
-    # ===============================
-    # Download Updated CSV
-    # ===============================
-    csv = df.to_csv(index=False)
-    st.download_button(
-        label="Download CSV with Calculated Risk",
-        data=csv,
-        file_name="sprint_updates_with_risk.csv",
-        mime="text/csv"
-    )
+        def detect_risk(row):
+
+            if row["blockers"] > 0 and row["progress"] < 50:
+                return "High"
+
+            elif row["blockers"] > 0 or row["progress"] < 50:
+                return "Medium"
+
+            else:
+                return "Low"
+
+        df["Calculated Risk"] = df.apply(
+            detect_risk,
+            axis=1
+        )
+
+        # ===============================
+        # Results Table
+        # ===============================
+
+        st.subheader("Risk Analysis Results")
+
+        st.dataframe(df)
+
+        # ===============================
+        # Risk Distribution Chart
+        # ===============================
+
+        st.subheader("Sprint Risk Distribution")
+
+        risk_counts = df["Calculated Risk"].value_counts()
+
+        fig, ax = plt.subplots()
+
+        colors = [
+            "red" if r == "High"
+            else "orange" if r == "Medium"
+            else "green"
+            for r in risk_counts.index
+        ]
+
+        ax.bar(
+            risk_counts.index,
+            risk_counts.values,
+            color=colors
+        )
+
+        ax.set_xlabel("Risk Level")
+
+        ax.set_ylabel("Count")
+
+        ax.set_title("Sprint Risk Distribution")
+
+        st.pyplot(fig)
+
+        # ===============================
+        # Summary Metrics
+        # ===============================
+
+        total_tasks = len(df)
+
+        high_risk_tasks = len(
+            df[df["Calculated Risk"] == "High"]
+        )
+
+        medium_risk_tasks = len(
+            df[df["Calculated Risk"] == "Medium"]
+        )
+
+        low_risk_tasks = len(
+            df[df["Calculated Risk"] == "Low"]
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric("Total Tasks", total_tasks)
+
+        col2.metric("High Risk", high_risk_tasks)
+
+        col3.metric("Medium Risk", medium_risk_tasks)
+
+        col4.metric("Low Risk", low_risk_tasks)
+
+        # ===============================
+        # Blocker Summary
+        # ===============================
+
+        total_blockers = df["blockers"].sum()
+
+        st.subheader("Blocker Summary")
+
+        st.metric(
+            "Total Blockers",
+            int(total_blockers)
+        )
+
+        # ===============================
+        # Progress Summary
+        # ===============================
+
+        avg_progress = df["progress"].mean()
+
+        st.subheader("Progress Summary")
+
+        st.metric(
+            "Average Progress (%)",
+            round(avg_progress, 1)
+        )
+
+        # ===============================
+        # Sprint Health Score
+        # ===============================
+
+        health_score = (
+            (
+                low_risk_tasks * 1.0
+                + medium_risk_tasks * 0.5
+                + high_risk_tasks * 0.2
+            )
+            / total_tasks
+            * 100
+        )
+
+        st.subheader("Sprint Health Score")
+
+        st.metric(
+            "Sprint Health (%)",
+            round(health_score, 1)
+        )
+
+        # ===============================
+        # Download CSV
+        # ===============================
+
+        csv = df.to_csv(index=False)
+
+        st.download_button(
+            label="Download CSV with Calculated Risk",
+            data=csv,
+            file_name="sprint_updates_with_risk.csv",
+            mime="text/csv"
+        )
+
+    except Exception as e:
+
+        st.error(
+            "Error reading file. Please upload a valid CSV."
+        )
 
 else:
+
     st.info("Upload a CSV file to begin risk analysis.")
