@@ -78,18 +78,16 @@ When uploading a CSV, the app will prompt you to map:
 
 ## 📂 Sample Input Format
 
-Example CSV structure:
+## Example CSV structure:
 
 ```csv
 ticket_id,progress,blockers
 ENG-101,40,1
 ENG-102,90,0
 ENG-103,60,0
+```
 
-
----
-
-## 📈 Sprint Metrics Included
+### 📈 Sprint Metrics Included
 
 The dashboard calculates:
 
