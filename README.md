@@ -1,60 +1,78 @@
 # AI Sprint Risk Analyzer 🚀
 
-Live App:
+Live App:  
 https://ai-sprint-risk-analyzer-jcqfd4z4habsx6uuactvep.streamlit.app/
 
+---
+
 ## Overview
-This project predicts sprint delivery risks using sprint updates, blockers, and progress metrics. It visualizes risk distribution and team progress using Streamlit dashboards.
+SprintRisk AI is a **flexible, universal Streamlit app** for sprint risk analysis. It allows project managers to upload **any CSV file**, map columns, and analyze sprint risks across tasks, blockers, and progress metrics. The app calculates risk levels, generates visual dashboards, and provides actionable insights, regardless of dataset structure.
 
 ---
 
 ## 📊 Dashboard Preview
 
 ### Sprint Risk Dashboard
-
 ![Sprint Dashboard](Sprintrisk_dashboard_streamlit.png)
 
----
-
 ### Progress Metrics Summary
-
 ![Progress Summary](Streamlit_progress.png)
 
----
-
 ### Risk Distribution Graph
-
 ![Sprint Graph](Sprint_graph.png)
 
 ---
 
 ## 🎯 Key Features
 
-✅ Upload sprint update CSV file
-✅ Automatic Risk Detection (High / Medium / Low)
-✅ Risk Distribution Visualization
-✅ Blocker Tracking
-✅ Sprint Health Score Calculation
-✅ Progress Monitoring
-✅ Download Updated Risk Report
+✅ Upload **any CSV file** (from Jira, Excel, or custom sprint trackers)  
+✅ Flexible **column mapping** for Ticket ID, Task Description, Blockers, and Progress  
+✅ Optional fields: blockers and progress can be omitted  
+✅ Automatic risk detection: High / Medium / Low  
+✅ Risk distribution visualization  
+✅ Blocker tracking  
+✅ Sprint health score calculation  
+✅ Progress monitoring  
+✅ Download CSV with calculated risk
 
 ---
 
 ## 🧠 How Risk Is Calculated
 
-Risk levels are calculated using task progress and blockers:
+Risk levels are determined using **task progress** and **blockers**:
 
-* **High Risk** → Blockers present AND progress below 50%
-* **Medium Risk** → Blockers present OR progress below 50%
-* **Low Risk** → No blockers AND good progress
+* **High Risk** → Blockers present **AND** progress below 50%  
+* **Medium Risk** → Blockers present **OR** progress below 50%  
+* **Low Risk** → No blockers **AND** progress ≥ 50%  
 
 Sprint Health Score is calculated based on:
 
-* Low Risk Tasks → High contribution
-* Medium Risk Tasks → Moderate contribution
-* High Risk Tasks → Low contribution
+* Low Risk Tasks → High contribution  
+* Medium Risk Tasks → Moderate contribution  
+* High Risk Tasks → Low contribution  
 
-This gives an overall percentage showing sprint stability.
+This produces an overall percentage showing sprint stability.
+
+---
+
+## 🛠️ How to Map Your Columns
+
+When uploading a CSV, the app will prompt you to map:
+
+| Field | Description |
+|-------|-------------|
+| Ticket ID | Unique task identifier (Task ID, Issue ID) |
+| Update Text | Task description (Summary, Title, Task Name) |
+| Blockers | Number of blockers (optional) |
+| Progress | Task completion percentage (optional) |
+
+**Notes:**
+
+- If blockers or progress are missing, the app will use default values:  
+  * Blockers = 0  
+  * Progress = 50%  
+
+- This ensures analysis and graphs remain accurate for any dataset.
 
 ---
 
@@ -62,66 +80,8 @@ This gives an overall percentage showing sprint stability.
 
 Example CSV structure:
 
+```csv
 ticket_id,progress,blockers
 ENG-101,40,1
 ENG-102,90,0
 ENG-103,60,0
-(sprint_updates_with_risk.csv)
-
----
-
-## ⚙️ Technologies Used
-
-* Python
-* Pandas
-* Matplotlib
-* Streamlit
-
----
-
-## ▶️ How to Run Locally
-
-Step 1 — Install dependencies:
-
-pip install streamlit pandas matplotlib
-
-Step 2 — Run the app:
-
-streamlit run sprintrisk_app.py
-
----
-
-## 📈 Sprint Metrics Included
-
-The dashboard calculates:
-
-* Total Tasks
-* High Risk Tasks
-* Medium Risk Tasks
-* Low Risk Tasks
-* Total Blockers
-* Average Progress (%)
-* Sprint Health Score (%)
-
----
-
-## 🚀 Future Enhancements
-
-Planned improvements include:
-
-*Add risk prediction logic (ML model)
-*Add file upload option
-*Add Jira-style sprint inputs
-*Add AI text risk explanation
----
-
-## 👩‍💻 Project Purpose
-
-This project demonstrates practical implementation of:
-
-* Agile sprint monitoring
-* Risk analysis automation
-* Data visualization dashboards
-* Project health tracking
-
-It reflects real-world sprint risk management practices used in modern software teams.
